@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="quiz">
+      <h1>Short Quiz Game</h1>
+      <div id="question"></div>
+      <div id="choices"></div>
+      <button id="next">Next</button>
+      <div id="result"></div>
+    </div>
+  </body>
+  <script>
+    const questions = [
+      {
+        question: "What is Phemelo's favourite colour?",
+        choices: ["Blue", "Red", "Black"],
+        answer: "Blue",
+      },
+
+      {
+        question: "What is my favourite board game?",
+        choices: ["Chess", "Monopoly", "Lodo"],
+        answer: "Chess",
+      },
+
+      {
+        question: "What is my favourite meal?",
+        choices: ["Pap and steak", "Mac and Cheese", "Rice and fish"],
+        answer: "Mac and Cheese",
+      },
+
+      {
+        question: "What is my favourite Loveworld Singers song?",
+        choices: [
+          "Lord of Host",
+          "King upon the throne",
+          "What a Mighty God you are",
+        ],
+        answer: "What a Mighty God you are",
+      },
+
+      {
+        question: "When did I start ministry?",
+        choices: ["1 May 2022", "25 March 2022", "20 June 2022"],
+        answer: "1 May 2022",
+      },
+      // Add more questions as needed
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function displayQuestion() {
+      const question = questions[currentQuestion];
+      document.getElementById("question").textContent = question.question;
+      const choicesDiv = document.getElementById("choices");
+      choicesDiv.innerHTML = "";
+      for (let i = 0; i < question.choices.length; i++) {
+        const button = document.createElement("button");
+        button.textContent = question.choices[i];
+        button.addEventListener("click", function () {
+          if (this.textContent === question.answer) {
+            score++;
+          }
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            displayQuestion();
+          } else {
+            document.getElementById(
+              "result"
+            ).textContent = `Your score: ${score}/${questions.length}`;
+            document.getElementById("next").style.display = "none";
+          }
+        });
+        choicesDiv.appendChild(button);
+      }
+    }
+
+    displayQuestion();
+  </script>
+</html>
